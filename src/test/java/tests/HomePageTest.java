@@ -1,28 +1,25 @@
 package tests;
 
+import org.testng.Assert;
+import org.testng.annotations.Test;
 import pages.HomePage;
-import org.junit.Assert;
-import org.junit.Test;
+
 
 public class HomePageTest extends AbstractBaseClass {
 
     @Test
-    public void search_test(){
-
-        String scrItem = "iphone 11 pro";
-
-        HomePage home = new HomePage(driver);
+    public void testSearch() {
+        String searchItem = "iphone 11 pro";
 
         driver.get("https://www.ebay.com/");
 
-        home.enterDetailsInSearch(scrItem);
-
+        HomePage home = new HomePage(driver);
+        home.enterDetailsInSearch(searchItem);
         home.clickSearchButton();
 
-        String srcRes1 = home.getFirstSearchResultTitle();
-        Assert.assertTrue(
-                "Search Key is present in First Search Result",
-                srcRes1.toLowerCase().contains(scrItem.toLowerCase()));
+        String firstSearchResultTitle = home.getFirstSearchResultTitle();
+        Assert.assertTrue(firstSearchResultTitle.toLowerCase().contains(searchItem.toLowerCase()),
+                "Search Key is present in First Search Result");
     }
 }
 
